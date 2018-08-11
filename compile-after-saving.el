@@ -1,4 +1,4 @@
-;;; compile-after-saving.el --- Automatically compile after saving a buffer.  -*- lexical-binding: t; -*-
+;;; compile-after-saving.el --- Automatically compile after saving a buffer.
 
 ;; Copyright (C) 2018  Darren Embry
 
@@ -51,7 +51,7 @@ ORIG-FUN is the original `save-buffer' function.
 Optional ARG is as in `save-buffer'."
   (message "arg is %S" arg)
   (message "(called-interactively-p) is %S" (called-interactively-p 'any))
-  (let ((compilation-save-buffers-predicate '(lambda () nil)))
+  (let ((compilation-save-buffers-predicate '(lambda () nil))) ;turn off saving other buffers before compile, temporarily.
     (if (buffer-modified-p)
         (progn
           (funcall-interactively orig-fun (list arg))
