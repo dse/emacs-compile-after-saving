@@ -51,7 +51,9 @@ ORIG-FUN is the original `save-buffer' function.
 Optional ARG is as in `save-buffer'."
   (message "arg is %S" arg)
   (message "(called-interactively-p) is %S" (called-interactively-p 'any))
-  (let ((compilation-save-buffers-predicate '(lambda () nil))) ;turn off saving other buffers before compile, temporarily.
+  ;; This turns off saving other buffers before compile, temporarily.
+  ;; This is why we don't use lexical binding in this file.
+  (let ((compilation-save-buffers-predicate '(lambda () nil)))
     (if (buffer-modified-p)
         (progn
           (funcall-interactively orig-fun (list arg))
